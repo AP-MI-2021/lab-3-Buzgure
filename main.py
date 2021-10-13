@@ -5,6 +5,7 @@ def show_menu():
     print('1.Citire Date')
     print('2.Cea mai lunga subsecventa in care toate numerele au semne alternative')
     print('3. Cea mai lunga subsecventa in care toate numerele au acelasi numar de biti de 1 in reprezentarea binara')
+    print('4. Cea mai lunga subsecventa in care toate numerele sunt patrate perfecte')
     print('x.Exit')
 
 
@@ -123,6 +124,37 @@ def test_get_longest_same_bit_counts():
     assert get_longest_same_bit_counts([10, 12, 14, 8]) == [10, 12]
     assert get_longest_same_bit_counts([10, 12, 1, 2, 4, 8, 16]) == [1, 2, 4, 8, 16]
     assert get_longest_same_bit_counts([1,10,121]) == 1
+
+def perfect_square(number: int):
+    sq = number ** 0.5
+    if sq == (int)(sq):
+        return True
+    return False
+
+def get_longest_all_perfect_squares(lst: List[int]) -> List[int]:
+    """
+    Determina cea mai lunga subsecventa in care toate numerele sunt oatrate perfecte
+    :param lst: lista de intregi pozitivi
+    :return: result - lista ce contine subsecventa ceruta
+    '''
+    """
+    result = []
+    for left in range(len(lst)):
+        for right in range(left, len(lst)):
+            all_squares = True
+            for num in lst[left:right +1]:
+                if perfect_square(num) == False:
+                    all_squares = False
+                    break
+            if all_squares:
+                if right - left + 1 > len(result):
+                    result = lst[left:right + 1]
+    return result
+
+def test_get_longest_all_perfect_squares():
+    assert get_longest_all_perfect_squares([25, 36, 4, 1, 8, 7]) == [25, 36, 4, 1]
+    assert get_longest_all_perfect_squares([25, 36, 4, 1, 8, 7, 25, 100, 25, 100, 36]) == [25, 100, 25, 100, 36]
+    assert get_longest_all_perfect_squares([8, 7]) == []
 def main():
     while True:
         show_menu()
@@ -133,6 +165,8 @@ def main():
             print(get_longest_alternating_signs(lst))
         elif option == '3':
             print(get_longest_same_bit_counts(lst))
+        elif option == '4':
+            print(get_longest_all_perfect_squares(lst))
         elif option == 'x':
             break
         else:
@@ -145,5 +179,5 @@ if __name__ == '__main__':
     test_get_longest_alternating_signs()
     test_number_of_set_bits()
     test_get_longest_same_bit_counts()
-
+    test_get_longest_all_perfect_squares()
 
