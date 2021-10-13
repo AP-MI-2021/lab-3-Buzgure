@@ -174,10 +174,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
     test_different_signs()
     test_get_longest_alternating_signs()
     test_number_of_set_bits()
     test_get_longest_same_bit_counts()
     test_get_longest_all_perfect_squares()
+    main()
+
 
